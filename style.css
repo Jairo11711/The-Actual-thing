@@ -1,0 +1,26 @@
+div.item-purchased-row-ui {
+    padding: 0%;
+    display: flex;
+    justify-content: space-around;
+    max-width: 80%;
+    text-align: center;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    transition: 
+        background-color 0.3s ease, 
+        transform 0.1s ease;
+}
+
+div.item-purchased-row-ui:hover {
+    transform: scale(1.05);
+    background-color:pink;
+}
+
+div.test-container {
+    max-width: 80%;
+}
+
+p.item-purchased-row-ui-text-size {
+    font-size: 22px;
+}

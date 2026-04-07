@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="{% static 'dashboard/script.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+</head>
+<body>
+    <center><h1>Database Entry Creation</h1></center>
+    <div class="center-form">
+        {% if submitted %}
+            Data has successfully entered the database
+        {% else %}
+
+            <form method="post" action="{% url 'db_control' %}">
+                {% csrf_token %}
+                <input type="hidden" name="customer_form">
+                <h3>Customer Making</h3>
+                {{ customer_form.as_p }}
+                <input type="submit" value="Submit">
+                <hr>
+            </form>
+            
+            <form method="post" action="{% url 'db_control' %}">
+                {% csrf_token %}
+                <input type="hidden" name="item_form">
+                <h3>Item Making</h3>
+                {{ item_form.as_p }}
+                <input type="submit" value="Submit">
+                <hr>
+            </form>
+
+            <form method="post" action="{% url 'db_control' %}">
+                {% csrf_token %}
+                <input type="hidden" name="transaction_form">
+                <h3>Transaction Making</h3>
+                {{ transaction_form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color:#F88D99;
+    --secondary-color: #CC5C87,
+}
+
+
+
+@font-face {
+    font-family: "MoreSugar";
+    src: url('fonts/more-sugar.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+.test {
+    font-family: 'MoreSugar';
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    height: 15vh;
+    width: 100vw;
+
+    /* Sticky Logic */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensures the header stays on top of other content */
+
+    border-bottom: 3px dashed #ff69b4;
+    padding-bottom: 1%;
+    overflow: visible;
+
+}
+
+.nav-margin-container{
+    height: 100%;
+    width: 100%;
+    /*background-color: #e46b8c;*/
+    background: linear-gradient(to right,
+        #CC5C87,
+        5%, 
+        #F88D99,
+        95%, 
+        #CC5C87
+    );
+
+    padding: 0 4%;
+}
+
+.main-nav {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: tomato;
+}
+
+.main-logo {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    min-width: 100%;
+    display: block;
+
+    background-color: white;
+    border: 5px solid #fbc7cb;
+    border-top: none;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.logo-link{
+    min-width: 100%;
+}
+
+.logo-container{
+    position: relative;
+    width: 150px;
+    min-width: 150px;
+    height: 100%;
+}
+
+.nav-link-list{
+    flex: 1;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+
+.nav-links a {
+    font-family: 'MoreSugar';
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.nav-link-container{
+    background-color: antiquewhite;
+    border-radius: 20px;
+    padding: 5px 10px;
+    justify-content: center;
+}
+
+.secondary-nav {
+    flex: 1;
+    display: flex;
+    height: 100%;    
+    width: 300px;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10%;
+}
+
+.search-container {
+    position: relative;
+    width: 300px; /* Adjust width as needed */
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Extra padding on the right for the icon */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-container button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 5px 10px;
+}
+
+.search-container button:hover {
+    color: #000;
+}
+
+.product-action-container {
+    display: flex;
+}
+
+.icon{
+    width: 40px;
+    height: 40px;
+
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: none;
+}
+.icon-svg{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.sign-in{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 24px;
+}

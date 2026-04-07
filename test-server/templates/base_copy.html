@@ -1,0 +1,26 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head >
+    <title>{% block site-name %} My Site {% endblock %}</title>
+    <!-- Global Stylesheet -->
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+</head>
+    {% block navbar %} 
+        
+        {% if user.is_authenticated %}
+            <p>User Logged in </p>
+        {% else %}
+            <p>User OUT </p>
+            
+        {% endif %}
+            
+    {% endblock %}
+<body>
+    <main>
+        <!-- This is where unique page content goes -->
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
