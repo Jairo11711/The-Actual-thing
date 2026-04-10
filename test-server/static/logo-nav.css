@@ -1,0 +1,23 @@
+.main-logo {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    min-width: 100%;
+    display: block;
+
+    background-color: var(--contrast-color);
+    border: 5px solid var(--accent-color);
+    border-top: none;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.logo-link{
+    min-width: 100%;
+}
+
+.logo-container{
+    position: relative;
+    width: 150px;
+    min-width: 150px;
+    height: 100%;
+}

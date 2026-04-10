@@ -1,0 +1,14 @@
+.public-login-navbar{
+    height: 20vh;
+}
+
+.public-login-navbar-container{
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 65%;
+    background: linear-gradient(to right,
+        var(--primary-color),
+        85%, 
+        var(--secondary-color)
+    );
+}

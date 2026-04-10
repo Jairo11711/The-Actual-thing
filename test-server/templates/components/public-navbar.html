@@ -1,14 +1,6 @@
-<!-- templates/base.html -->
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head >
-    <title>{% block site-name %} My Site {% endblock %}</title>
-    <!-- Global Stylesheet -->
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-</head>
-<header> 
-    <div class="public-header">
+
+<div class="public-header">
         <div class="nav-margin-container">
             <nav class="main-nav">
                 
@@ -55,14 +47,3 @@
             </nav>
         </div>
     </div>
-
-</header>
-<body>
-    <main>
-        <!-- This is where unique page content goes -->
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer>Global Footer © 2024</footer>
-</body>
-</html>

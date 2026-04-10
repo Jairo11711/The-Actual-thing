@@ -1,31 +1,3 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root{
-    --primary-color:#F88D99;
-    --secondary-color: #CC5C87;
-    --accent-color:#fbc7cb;
-    --contrast-color: #fffafa;
-
-    --text-color: #000000;
-    --shadow-text-color: #808080
-}
-
-
-
-@font-face {
-    font-family: "MoreSugar";
-    src: url('fonts/more-sugar.regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-
 
 .public-header{
     display: flex;
@@ -65,30 +37,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.main-logo {
-    position: absolute;
-    height: auto;
-    width: 100%;
-    min-width: 100%;
-    display: block;
-
-    background-color: var(--contrast-color);
-    border: 5px solid var(--accent-color);
-    border-top: none;
-    border-radius: 0px 0px 20px 20px;
-}
-
-.logo-link{
-    min-width: 100%;
-}
-
-.logo-container{
-    position: relative;
-    width: 150px;
-    min-width: 150px;
-    height: 100%;
 }
 
 .nav-link-list{

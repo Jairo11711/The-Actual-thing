@@ -5,18 +5,10 @@
 <head >
     <title>{% block site-name %} My Site {% endblock %}</title>
     <!-- Global Stylesheet -->
-    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
-    {% block navbar %} 
-        
-        {% if user.is_authenticated %}
-            <p>User Logged in </p>
-        {% else %}
-            <p>User OUT </p>
-            
-        {% endif %}
-            
-    {% endblock %}
+{% block header %}{% endblock header %}
+
 <body>
     <main>
         <!-- This is where unique page content goes -->

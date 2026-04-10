@@ -1,0 +1,26 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color:#F88D99;
+    --secondary-color: #CC5C87;
+    --accent-color:#fbc7cb;
+    --contrast-color: #fffafa;
+
+    --text-color: #000000;
+    --shadow-text-color: #808080
+}
+
+
+
+@font-face {
+    font-family: "MoreSugar";
+    src: url('fonts/more-sugar.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
