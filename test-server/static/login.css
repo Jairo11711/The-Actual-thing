@@ -1,0 +1,22 @@
+
+.login-container{
+    border-radius: 20px;
+    padding: 0px 10px;
+}
+
+.login-container.active{
+    border: 3px solid var(--accent-color);
+    background-color: var(--contrast-color);
+}
+
+.login{
+    font-family: 'MoreSugar';
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.login username {
+    color: var(--contrast-color);
+}
