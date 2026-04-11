@@ -1,0 +1,8 @@
+{% extends 'public_base.html' %}
+{% block nav-links %}
+    <div class="nav-link-container active"><li><a href="{% url 'main:index' %}">HOME</a></li></div>
+    <div class="nav-link-container"><li><a href="{% url 'shop:index' %}">SHOP</a></li></div>
+    <div class="nav-link-container"><li><a href="{% url 'news:index' %}">NEWS</a></li></div>
+    <div class="nav-link-container"><li><a href="/commission">COMMISSION</a></li></div>
+    <div class="nav-link-container"><li><a href="{% url 'contact:index' %}">CONTACT</a></li></div>
+{% endblock nav-links %}

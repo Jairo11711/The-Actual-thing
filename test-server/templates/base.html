@@ -7,62 +7,16 @@
     <!-- Global Stylesheet -->
     <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
-<header> 
-    <div class="public-header">
-        <div class="nav-margin-container">
-            <nav class="main-nav">
-                
-                <div class="nav-link-list">
-                    <ul class="nav-links"> 
-                        <div class="nav-link-container"><li><a href="/home">HOME</a></li></div>
-                        <div class="nav-link-container"><li><a href="/shop">SHOP</a></li></div>
-                        <div class="nav-link-container"><li><a href="/news">NEWS</a></li></div>
-                        <div class="nav-link-container"><li><a href="/commission">COMMISSION</a></li></div>
-                        <div class="nav-link-container"><li><a href="/contact">CONTACT</a></li></div>
-                    </ul>
-                </div>
+    
+    {% block header %}
+        
+    {% endblock header %}
+        
 
-                <div class="logo-container">
-                    <a href="/" class="logo-link">
-                        <img src="{% static 'images/logo.png' %}" alt="Willow Fairy Logo" class="main-logo">
-                    </a>
-                </div>
-
-                <div class="secondary-nav">
-
-                    <div class="product-action-container">
-                        <form action="/search" method="GET" class="search-bar">
-                            <div class="search-container">
-                                <input type="text" name="q" placeholder="Search in the shop" aria-label="Search">
-                                <button type="submit" title="Search" class="icon" aria-label="Shoping Cart">
-                                    <img src="{% static 'images/search-symbol.svg' %}" class="icon-svg">
-                                </button>
-                            </div>
-                        </form>
-
-                        <button type="button" class="icon" aria-label="Shoping Cart">
-                            <img src="{% static 'images/cart-symbol.svg' %}" class="icon-svg">
-                        </button>
-                    </div>
-
-                    <div class="log-in-section">
-                        <a class="sign-in" href="/accounts/login">Sign In</a>
-                        
-                    </div>
-
-                </div>
-            
-            </nav>
-        </div>
-    </div>
-
-</header>
 <body>
     <main>
         <!-- This is where unique page content goes -->
         {% block content %}{% endblock %}
     </main>
-
-    <footer>Global Footer © 2024</footer>
 </body>
 </html>

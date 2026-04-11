@@ -60,11 +60,19 @@
 }
 
 .nav-link-container{
-    background-color: var(--contrast-color);
     border-radius: 20px;
     padding: 5px 10px;
     justify-content: center;
 }
+
+.nav-link-container.active {
+    background-color: var(--contrast-color);
+}
+
+.nav-link-container.inactive{
+    background-color: none;
+}
+
 
 .secondary-nav {
     flex: 1;

@@ -1,6 +1,54 @@
-{% extends 'base_copy.html' %}
+{% extends 'base.html' %}
 
-{% block content %}
-    {% include "components/public_login_navbar.html" %}    
-{% endblock content %}
+{% load static %}
+{% block header %}
+    <div class="public-header">
+        <div class="nav-margin-container">
+            <nav class="main-nav">
+                
+                <div class="nav-link-list">
+                    <ul class="nav-links"> 
+                        
+                        {% block nav-links %}
+                            
+                        {% endblock nav-links %}
+                            
+                    </ul>
+                </div>
+
+                <div class="logo-container">
+                    <a href="/" class="logo-link">
+                        <img src="{% static 'images/logo.png' %}" alt="Willow Fairy Logo" class="main-logo">
+                    </a>
+                </div>
+
+                <div class="secondary-nav">
+
+                    <div class="product-action-container">
+                        <form action="/search" method="GET" class="search-bar">
+                            <div class="search-container">
+                                <input type="text" name="q" placeholder="Search in the shop" aria-label="Search">
+                                <button type="submit" title="Search" class="icon" aria-label="Shoping Cart">
+                                    <img src="{% static 'images/search-symbol.svg' %}" class="icon-svg">
+                                </button>
+                            </div>
+                        </form>
+
+                        <button type="button" class="icon" aria-label="Shoping Cart">
+                            <img src="{% static 'images/cart-symbol.svg' %}" class="icon-svg">
+                        </button>
+                    </div>
+
+                    <div class="log-in-section">
+                        <a class="sign-in" href="/accounts/login">Sign In</a>
+                        
+                    </div>
+
+                </div>
+            
+            </nav>
+        </div>
+    </div>
+
+{% endblock header %}
     
