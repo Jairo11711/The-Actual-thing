@@ -2,5 +2,5 @@
 @import 'public-header.css';
 @import 'logo-nav.css';
 @import 'public_login_nav.css';
-@import 'public_login.css';
-@import 'login.css';
+@import 'public_login_form.css';
+@import 'login_prompt.css';

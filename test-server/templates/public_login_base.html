@@ -1,5 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
 
+
+
+{% block header %}
+    
 <div class="public-login-navbar">
     <div class="public-login-navbar-container">
         
@@ -10,12 +15,16 @@
         </div>
 
         <div class="signup-container">
-            <div class="signup-text">
-            <p class="signup">Don't have an account?</p>
-            <a class="signup link" href="{% url 'accounts:registration' %}">SIGN UP</a>
-            </div>
+            {% block sign-direction %}
+            {% endblock sign-direction %}
         </div>
-
-
     </div>
 </div>
+   
+{% endblock header %}
+ 
+
+{% block content %}
+    
+{% endblock content %}
+    

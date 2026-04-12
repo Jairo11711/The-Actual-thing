@@ -1,14 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'public_login_base.html' %}
 
-{% block header %}
-    {% include 'components/public_login_navbar.html' %}
-{% endblock header %}
+
+{% block sign-direction %}
+    <div class="signup-text">
+    <p class="signup">Don't have an account?</p>
+    <a class="signup link" href="{% url 'accounts:registration' %}">SIGN UP</a>
+    </div>
+{% endblock sign-direction %}
+    
 
 
 {% block content %}
     <div class="round-pink-box-container">
         <div class="round-pink-box">
-            <h1>LOG IN</h1>
+            <h1 class="login-label h1">Login</h1>
+
+            <form class="login-form" action="{% url 'accounts:login' %}" method="post">
+                {% csrf_token %}
+                <div class="entry-field">
+                    <label class="login-label">Username</label>
+                    <input class="login-input" type="text" name="username" >
+                </div>
+                <div class="entry-field">
+                    <label class="login-label">Password</label>
+                    <input class="login-input" type="password" name="password" >
+                </div>
+                <input class="login-input submit" type="submit" value="LOGIN">
+            </form>
         </div>
     </div>
 {% endblock content %}
