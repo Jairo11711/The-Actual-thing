@@ -42,7 +42,7 @@
                     <div class="log-in-section">
 
                         {% if user.is_authenticated %}
-                            <div class="login-container active"><p class="login">Hello,  {{user.username}}</p></div>
+                            <div class="login-container active"><p class="login">{{user.username}}</p></div>
                             <div class="login-container"><a class="login" href="{% url 'accounts:logout' %}"> Logout</a></div>
                         {% else %}
                             <a class="login" href="{% url 'accounts:login' %}">Log In</a>

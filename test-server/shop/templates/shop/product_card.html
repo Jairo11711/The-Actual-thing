@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="product-card">    
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="product-image">
+    {% else %}
+        <img src="{% static 'images/product-placeholder.jpg' %}" class="product-image">
+    {% endif %}
+    <h6 class="product-name">{{ product.name|title }}</h6>
+    <h6 class="product-price">${{ product.price }}</h6>
+    <form action="{% url 'shop:add_to_cart' product.id %}" method="POST">
+        {% csrf_token %}
+        <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+    </form>
+</div>

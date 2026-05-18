@@ -1,6 +1,11 @@
 @import 'variable.css';
-@import 'public-header.css';
-@import 'logo-nav.css';
-@import 'public_login_nav.css';
-@import 'public_login_form.css';
-@import 'login_prompt.css';
+@import 'nav/public-header.css';
+@import 'nav/logo-nav.css';
+@import 'nav/public_login_nav.css';
+@import 'account/public_login_form.css';
+@import 'account/login_prompt.css';
+@import 'account/registration-input.css';
+@import 'contact/contact.css';
+@import 'general-classes.css';
+@import 'shop/product-card.css';
+@import 'shop/shop-page.css';

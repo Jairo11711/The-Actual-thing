@@ -1,0 +1,62 @@
+.registration-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the section headers (Account Details / Personal Info) */
+h3 {
+    font-family: "MoreSugar";
+    width: 400px;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+/* Match the button to the "chunky" aesthetic */
+.btn-signup {
+    width: 400px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: "MoreSugar";
+    cursor: pointer;
+}
+
+.login-form p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form label {
+    font-family: "MoreSugar";
+    font-size: 26px;
+    width: 400px;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.registration-information-horizontal-container{
+    display: flex;
+    gap: 50px;
+}
+
+.error-text {
+    margin-top: 20px;
+    color: red;
+    font-size: 16px;
+    font-family: "MoreSugar";
+
+    /* Word Wrap Magic */
+    overflow-wrap: break-word; /* Modern standard */
+    word-wrap: break-word;     /* Legacy support */
+    hyphens: auto;             /* Optional: adds hyphens where it breaks */
+}

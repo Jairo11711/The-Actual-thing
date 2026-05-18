@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-from .models import customer,transaction,item
+from .models import Customer,Transaction,Item
 
 app_name = 'dashboard'
 

@@ -1,7 +1,7 @@
 
 .round-pink-box{
     border: 4px solid var(--primary-color);
-    width: 35vw;
+    min-width: 35vw;
     border-radius: 30px;
     display: flex;
     justify-content: center;
@@ -19,6 +19,7 @@
 }
 
 .login-form{
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,9 +49,6 @@
 }
 
 .login-input.submit{
-    margin-top: 45px;
-
-
     text-decoration: none;
     font-family: "MoreSugar";
     padding: 10px 5px;
@@ -66,4 +64,26 @@
     flex-direction: column;
     align-items: start;
     gap: 10px;
+}
+
+.error-message-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    height: 45px;
+}
+
+.messages li.error {
+    color: red;
+    font-size: 16px;
+    font-family: "MoreSugar";
+
+}
+
+.messages li.success {
+    color: green;
+    font-size: 16px;
+    font-family: "MoreSugar";
+
 }

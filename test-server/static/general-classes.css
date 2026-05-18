@@ -1,0 +1,9 @@
+.action-call{
+    font-size: 48px;
+    font-family: var(--font-family);
+}
+
+.sub-action-call{
+    font-family: var(--font-family-sub);
+    color: var(--shadow-text-color);
+}

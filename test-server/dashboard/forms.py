@@ -1,9 +1,9 @@
 from django.forms import ModelForm
-from .models import customer, transaction, item
+from .models import Customer, Transaction, Item
 
 class CustomerForm(ModelForm):
     class Meta:
-        model = customer
+        model = Customer
         fields = ('name',)
         labels = {
             'name' : 'Customer Name', #This is where you put the label for the fields
@@ -11,7 +11,7 @@ class CustomerForm(ModelForm):
 
 class TransactionForm(ModelForm):
     class Meta:
-        model = transaction
+        model = Transaction
         fields = ('customer', 'item', )
         labels = {
             'customer' : 'Customer Name',
@@ -20,7 +20,7 @@ class TransactionForm(ModelForm):
 
 class ItemForm(ModelForm):
     class Meta:
-        model = item
+        model = Item
         fields = {'name', 'price'}
         labels = {
             'name' : 'Item Name',
