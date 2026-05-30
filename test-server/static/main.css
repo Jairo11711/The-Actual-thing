@@ -9,3 +9,5 @@
 @import 'general-classes.css';
 @import 'shop/product-card.css';
 @import 'shop/shop-page.css';
+@import 'account/checkout.css';
+@import 'account/cart_item_card.css';

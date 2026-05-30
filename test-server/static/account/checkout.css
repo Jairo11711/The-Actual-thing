@@ -1,0 +1,171 @@
+.cart-margin {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    
+    display: flex;
+    height: 825px;
+    overflow: hidden;
+}
+
+.scroll-left{
+    flex: 1; /* Takes up half the space (or adjust as needed) */
+    height: 100%;
+    overflow-y: auto; /* Enables vertical scrolling just for this side */
+    padding: 20px;
+
+    scrollbar-width: none;
+}
+
+.static-right{
+    flex: 1; /* Takes up the other half */
+    height: 100%;
+    padding: 20px;
+
+    border-radius: 20px;
+    border: 3px solid var(--secondary-color);
+}
+
+
+.checkout-header{
+    font-family: var(--font-family);
+}
+
+.cart-total-price{
+    font-size: 32px;
+    font-family: var(--font-family-sub);
+}
+
+
+.checkout-payment-information{
+    padding: 0px;
+}
+
+.ph-delivery-form {
+    font-family: "Segoe UI", -apple-system, sans-serif;
+    max-width: 600px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 12px;
+}
+
+.form-title {
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-subtitle{
+    font-family: var(--font-family-sub);
+}
+
+.form-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group select {
+    padding: 6px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333333;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.2s ease;
+}
+
+/* Gray styling for pre-filled values */
+.form-group.locked input {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.split-30-70 {
+    grid-template-columns: 30% 70%;
+}
+
+.phone-input-wrapper {
+    display: flex;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.phone-prefix {
+    padding: 12px;
+    font-size: 15px;
+    color: #666666;
+    font-weight: 600;
+    border-right: 1px solid #cccccc;
+    user-select: none;
+}
+
+.phone-input-wrapper input {
+    border: none !important;
+    flex-grow: 1;
+    padding: 12px;
+}
+
+.form-hint {
+    font-size: 11px;
+    color: #777777;
+    margin-top: 4px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.radio-label {
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.submit-delivery-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.submit-delivery-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+@media (max-width: 500px) {
+    .form-grid, .split-30-70 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

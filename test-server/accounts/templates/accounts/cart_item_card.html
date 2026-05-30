@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="cart-item-card">    
+    {% if cart_item.item.image %}
+        <img src="{{ cart_item.item.image.url }}" class="cart-item-image" alt="{{ cart_item.item.name }}">
+    {% else %}
+        <img src="{% static 'images/product-placeholder.jpg' %}" class="cart-item-image" alt="Placeholder">
+    {% endif %}
+    <div class="cart-item-specs">
+        <h6 class="cart-item-name">{{ cart_item.item.name|title }}</h6>
+        <h6 class="cart-item-price">₱{{  cart_item.item.price }} </h6>
+        <h6 class="cart-item-quantity">x{{ cart_item.quantity }}</h6>
+        <h6 class="cart-item-total-price">₱{{cart_item.subtotal}}</h6>
+    
+        <form action="{% url 'accounts:remove_item' cart_item.id %}" method="POST" class="cart-delete-form">
+            {% csrf_token %}
+            <button type="submit" class="cart-delete-btn" title="Remove item">
+                X </button>
+        </form>
+    </div>
+</div>

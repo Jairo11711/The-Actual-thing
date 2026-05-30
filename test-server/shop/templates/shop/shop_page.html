@@ -1,14 +1,14 @@
 {% extends "shop/base_shop.html" %}
 {% block content %}
     <div class="product-page-margin">
-    <div class="product-grid">    
-        {% for i in items %}
-            {% include 'shop/product_card.html' with product=i %}
-        {%empty%}
-            <p>No products found in the database.</p>
+        <div class="product-grid">    
+            {% for i in items %}
+                {% include 'shop/product_card.html' with product=i %}
+            {%empty%}
+                <p>No products found in the database.</p>
 
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-</div>
 {% endblock content %}
 

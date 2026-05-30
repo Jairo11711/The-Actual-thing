@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
-from .models import Customer,Item,Transaction,CartItem,Cart
+from .models import Customer,Item,Transaction,CartItem,Cart,Order,OrderItem
 
 
 class CartItemInline(admin.TabularInline):
@@ -52,6 +52,14 @@ class CartInline(admin.StackedInline):
     display_cart_items.short_description = "Items in Cart"
     total_price_display.short_description = "Current Total"
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+    # Make order items read-only in the inline view to preserve delivery history integrity
+    readonly_fields = ('item_name', 'price_at_purchase', 'quantity', 'subtotal')
+    can_delete = False
+
+
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'date_created', 'id')
@@ -89,5 +97,55 @@ class TransactionAdmin(admin.ModelAdmin):
 
     ordering = ('-date_created', )
 
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'full_name', 'barangay', 'status', 'total_price_display', 'date_ordered')
+    list_filter = ('status', 'date_ordered', 'barangay')
+    search_fields = ('full_name', 'mobile_number', 'street_address')
+    ordering = ('-date_ordered',)
+    
+    inlines = [OrderItemInline]
+    
+    # Organize delivery detail groupings cleanly inside the dashboard panel
+    fieldsets = (
+        ('Order Status', {
+            'fields': ('status', 'total_price_display', 'display_order_items')
+        }),
+        ('Customer Info', {
+            'fields': ('customer', 'full_name', 'mobile_number')
+        }),
+        ('Delivery Address (Urdaneta City)', {
+            'fields': ('street_address', 'barangay', 'landmarks', 'address_type', 'postal_code', 'city', 'province', 'region')
+        }),
+    )
+    
+    readonly_fields = ('date_ordered', 'total_price_display', 'display_order_items', 'postal_code', 'city', 'province', 'region')
 
-# Register your models here.
+    def display_order_items(self, obj):
+        if not obj or not obj.pk:
+            return "No items recorded."
+            
+        items = obj.order_items.all()
+        if not items:
+            return "This order has no items."
+            
+        html_elements = []
+        for item in items:
+            subtotal_formatted = f"{item.subtotal:.2f}"
+            html_elements.append(
+                format_html(
+                    "<li><strong>{}x</strong> {} — (₱{})</li>",
+                    item.quantity,
+                    item.item_name,
+                    subtotal_formatted
+                )
+            )
+        return format_html("<ul>{}</ul>", mark_safe("".join(html_elements)))
+
+    def total_price_display(self, obj):
+        if not obj or not obj.pk:
+            return "₱0.00"
+        return f"₱{obj.grand_total:.2f}"
+
+    display_order_items.short_description = "Ordered Items Snapshot"
+    total_price_display.short_description = "Grand Total Amount"

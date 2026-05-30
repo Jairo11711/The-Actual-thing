@@ -34,9 +34,16 @@
                             </div>
                         </form>
 
+                        <a href="{% url 'accounts:view_cart' %}">
                         <button type="button" class="icon" aria-label="Shoping Cart">
                             <img src="{% static 'images/cart-symbol.svg' %}" class="icon-svg">
                         </button>
+                        </a>
+                        <a href="{% url 'accounts:view_order' %}">
+                        <button type="button" class="icon" aria-label="Shoping Cart">
+                            <img src="{% static 'images/van-symbol.svg' %}" class="icon-svg">
+                        </button>
+                        </a>
                     </div>
 
                     <div class="log-in-section">

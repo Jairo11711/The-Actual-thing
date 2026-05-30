@@ -5,7 +5,7 @@
 }
 
 /* Style for the section headers (Account Details / Personal Info) */
-h3 {
+.registration-header {
     font-family: "MoreSugar";
     width: 400px;
     text-align: left;

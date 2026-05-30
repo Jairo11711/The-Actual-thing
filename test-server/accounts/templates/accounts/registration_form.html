@@ -19,7 +19,7 @@
                 {% csrf_token %}
                 <div class="registration-information-horizontal-container">
                 <div class="registration-info-container">
-                    <h3>Account Details</h3>
+                    <h3 class="registration-header">Account Details</h3>
                     {% for field in user_form %}
                         <div class="registration-container">
                             <label>{{field.label}}</label>
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="registration-info-container">
-                    <h3>Personal Info</h3>
+                    <h3 class="registration-header">Personal Info</h3>
                     {% for field in profile_form %}
                         <div class="registration-container">
                             <label>{{field.label}}</label>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-                <button class="btn-signup "type="submit">Sign Up</button>
+                <button class="btn-signup "type="submit" name="action" value="REGISTER">Sign Up</button>
 
 
 

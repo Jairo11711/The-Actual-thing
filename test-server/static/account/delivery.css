@@ -1,0 +1,26 @@
+.order-margin {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    
+    display: flex;
+    height: 825px;
+    overflow: hidden;
+}
+
+.order-scroll-right{
+    flex: 1; /* Takes up half the space (or adjust as needed) */
+    height: 100%;
+    overflow-y: auto; /* Enables vertical scrolling just for this side */
+    padding: 20px;
+
+    scrollbar-width: none;
+}
+
+.order-static-left{
+    flex: 1; /* Takes up the other half */
+    height: 100%;
+    padding: 20px;
+
+    border-radius: 20px;
+    border: 3px solid var(--secondary-color);
+}

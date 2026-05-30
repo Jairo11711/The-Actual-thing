@@ -1,0 +1,133 @@
+{% extends 'public_login_base.html' %}
+
+{% block sign-direction %}
+    <div class="signup-text">
+    <p class="signup">CART CHECKOUT</p>
+    </div>
+{% endblock sign-direction %}
+
+{% block content %}
+    <div class="cart-margin">
+        <div class="scroll-left">
+            <h1 class="checkout-header">Items</h1>
+            {% if cart and cart.items.all %}
+                <div class="cart-items-container">
+                    
+                    {% for cart_item in cart.items.all %}
+                        {% include "accounts/cart_item_card.html" with item_data=cart_item %}    
+                    {% endfor %}
+                </div>
+
+            {% else %}
+            <p>Your cart is empty</p>
+            {% endif %}
+        </div>
+        <div class="static-right">
+            <div class="cart-summary">
+                    <h1 class="checkout-header">Cart Summary</h1>
+                    <h3 class='cart-total-price'> Total: ₱{{ cart.total_price }}</h3>
+            </div>
+            <div class="checkout-payment-information">
+    <form action="{% url 'accounts:order_cart' %}" method="POST" class="ph-delivery-form">
+    {% csrf_token %}
+
+    <h3 class="form-title">Delivery Information</h3>
+    <h4 class="form-subtitle">Cash on Delivery Only </h4>
+    <p class="form-subtitle">Exclusively serving Urdaneta City, Pangasinan</p>
+    <hr class="form-divider">
+
+    <div class="form-section">
+        <div class="form-group">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Juan Dela Cruz" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mobile_number">Mobile Number</label>
+            <div class="phone-input-wrapper">
+                <span class="phone-prefix">+63</span>
+                <input type="tel" id="mobile_number" name="mobile_number" placeholder="9171234567" pattern="9[0-9]{9}" maxlength="10" required>
+            </div>
+            <small class="form-hint">Format: 9XXXXXXXXX (10 digits)</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="street_address">House No., Building, Street Name, Zone/Purok</label>
+        <input type="text" id="street_address" name="street_address" placeholder="Purok 3, 25 MacArthur Highway" required>
+    </div>
+
+    <div class="form-group">
+        <label for="landmarks">Landmark / Delivery Instructions (Optional)</label>
+        <input type="text" id="landmarks" name="landmarks" placeholder="Near Urdaneta Sacred Heart Hospital, green gate">
+    </div>
+
+    <div class="form-group">
+        <label for="barangay">Barangay</label>
+        <select id="barangay" name="barangay" required>
+            <option value="" disabled selected>Select Barangay</option>
+            <option value="Anonas">Anonas</option>
+            <option value="Bactad East">Bactad East</option>
+            <option value="Bayaoas">Bayaoas</option>
+            <option value="Bolaoen">Bolaoen</option>
+            <option value="Cabaruan">Cabaruan</option>
+            <option value="Cabuloan">Cabuloan</option>
+            <option value="Camanang">Camanang</option>
+            <option value="Camantiles">Camantiles</option>
+            <option value="Casantaan">Casantaan</option>
+            <option value="Catablan">Catablan</option>
+            <option value="Cayambanan">Cayambanan</option>
+            <option value="Consolacion">Consolacion</option>
+            <option value="Dilan Paurido">Dilan Paurido</option>
+            <option value="Labit Proper">Labit Proper</option>
+            <option value="Labit West">Labit West</option>
+            <option value="Mabanogbog">Mabanogbog</option>
+            <option value="Macalong">Macalong</option>
+            <option value="Nancalobasaan">Nancalobasaan</option>
+            <option value="Nancamaliran East">Nancamaliran East</option>
+            <option value="Nancamaliran West">Nancamaliran West</option>
+            <option value="Nancayasan">Nancayasan</option>
+            <option value="Oltama">Oltama</option>
+            <option value="Palina East">Palina East</option>
+            <option value="Palina West">Palina West</option>
+            <option value="Pedro T. Orata">Pedro T. Orata (Bactad Proper)</option>
+            <option value="Pinmaludpod">Pinmaludpod</option>
+            <option value="Poblacion">Poblacion</option>
+            <option value="San Jose">San Jose</option>
+            <option value="San Vicente">San Vicente</option>
+            <option value="Santa Lucia">Santa Lucia</option>
+            <option value="Santo Domingo">Santo Domingo</option>
+            <option value="Sugcong">Sugcong</option>
+            <option value="Tipuso">Tipuso</option>
+            <option value="Tulong">Tulong</option>
+        </select>
+    </div>
+
+    <div class="form-grid split-30-70">
+        <div class="form-group locked">
+            <label for="postal_code">ZIP Code</label>
+            <input type="text" id="postal_code" name="postal_code" value="2428" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="address_type">Address Type</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="address_type" value="home" checked> Home
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="address_type" value="office"> Office
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="submit-delivery-btn" name="action" value="ORDER">Proceed to Payment</button>
+</form>
+                    
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
+

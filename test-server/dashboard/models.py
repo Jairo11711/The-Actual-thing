@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.db.models import Sum, F
 
 
@@ -61,7 +61,11 @@ class Cart(models.Model):
             total=Sum(F('quantity') * F('item__price'), output_field=models.DecimalField())
         )['total']
         
-        return result if result is not None else Decimal('0.00')
+        if result is None:
+            return Decimal('0.0')
+        
+        # Using quantize ensures safe, deterministic decimal rounding to 1 decimal place
+        return result.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
     
 class CartItem(models.Model):
     cart = models.ForeignKey(
@@ -77,4 +81,63 @@ class CartItem(models.Model):
 
     @property
     def subtotal(self):
-        return self.item.price * self.quantity
+        raw_subtotal = self.item.price * self.quantity
+        # Kept consistent with the Cart total rounding
+        return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending / Preparing'),
+        ('Out for Delivery', 'Out for Delivery'),
+        ('Delivered', 'Delivered'),
+        ('Cancelled', 'Cancelled'),
+    ]
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    
+    # Form Delivery Details
+    full_name = models.CharField(max_length=100)
+    mobile_number = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=255)
+    barangay = models.CharField(max_length=100)
+    
+    # Locked delivery parameters for your specific business setup
+    region = models.CharField(max_length=100, default="Region I (Ilocos Region)")
+    province = models.CharField(max_length=100, default="Pangasinan")
+    city = models.CharField(max_length=100, default="Urdaneta City")
+    postal_code = models.CharField(max_length=10, default="2428")
+    
+    address_type = models.CharField(max_length=10, choices=[('home', 'Home'), ('office', 'Office')], default='home')
+    landmarks = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"Order #{self.id} - {self.full_name} ({self.status})"
+
+    @property
+    def grand_total(self):
+        result = self.order_items.aggregate(
+            total=Sum(F('quantity') * F('price_at_purchase'), output_field=models.DecimalField())
+        )['total']
+        if result is None:
+            return Decimal('0.00')
+        return result.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
+    # Link to item fallback, but save names/prices as strings/decimals 
+    # to protect historical orders if a store item gets updated or deleted later.
+    item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True)
+    item_name = models.CharField(max_length=100)
+    price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.item_name} (Order #{self.order.id})"
+
+    @property
+    def subtotal(self):
+        raw_subtotal = self.price_at_purchase * self.quantity
+        return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
