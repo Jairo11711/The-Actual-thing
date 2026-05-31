@@ -1,0 +1,55 @@
+{% extends 'commission/base_commission.html' %}
+
+{% block content %}
+    
+    <div class="comm-margin">
+        
+        <!-- Left Side: 2/3 Column CTA Content with Background Image -->
+        <div class="comm-hero-action">
+            <h1 class="hero-title">Get Hooked on Something Truly Custom</h1>
+            
+            <p class="hero-subtitle">
+                Turn your unique ideas into bespoke creations. Submit your commission concept today—the artist reviews every proposal personally to ensure it's a perfect fit. Keep an eye on your inbox; you’ll receive an official acceptance update within <strong>24 to 48 hours</strong>.
+            </p>
+        </div>
+
+        <!-- Right Side: 1/3 Column Input Form Container -->
+        <div class="comm-form-container">
+            {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+            <form method="POST" enctype="multipart/form-data" class="commission-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" id="product_name" name="product_name" placeholder="e.g., Custom Canvas Portrait" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your-email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="details">Commission Details</label>
+                    <textarea id="details" name="details" rows="6" placeholder="Describe your vision, size preferences, color schemes, or specific deadlines..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="reference_image" class="file-label">Reference Image <span class="optional-text">(Optional)</span></label>
+                    <input type="file" id="reference_image" name="reference_image" accept="image/*">
+                    <small class="form-help">Upload a high-quality image (.png, .jpg) to serve as design reference.</small>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
