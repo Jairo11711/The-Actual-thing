@@ -1,0 +1,16 @@
+/* --- CONTAINER WRAPPER --- */
+/* Limits how wide the text can stretch across the screen to optimize readability */
+.announcements-feed-container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.announcements-feed-container h2 {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 32px;
+    color: #1a202c;
+    margin-bottom: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+

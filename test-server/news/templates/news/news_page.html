@@ -1,0 +1,17 @@
+{% extends 'news/base_news.html' %}
+
+{% block content %}
+    <div class="news-margin">
+    <div class="announcements-feed-container">
+        <h2>Latest Announcements</h2>
+        
+        {% for announcement in announcements %}
+            
+            {% include 'news/news_card.html' %}
+            
+        {% empty %}
+            <p class="no-announcements">No announcements posted at this time.</p>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% load static %}
+
+<div class="order-item-card">    
+    {% if order_item.item.image %}
+        <img src="{{ order_item.item.image.url }}" class="order-item-image" alt="{{ order_item.item.name }}">
+    {% else %}
+        <img src="{% static 'images/product-placeholder.jpg' %}" class="order-item-image" alt="Placeholder">
+    {% endif %}
+    
+    <div class="order-item-specs">
+        <h6 class="order-item-name">{{ order_item.item.name|title }}</h6>
+        <div class="order-item-details">
+            <span class="order-item-price">₱{{ order_item.item.price }}</span>
+            <span class="order-item-quantity">x{{ order_item.quantity }}</span>
+        </div>
+        <h6 class="order-item-total-price">₱{{ order_item.subtotal }}</h6>
+    </div>
+</div>

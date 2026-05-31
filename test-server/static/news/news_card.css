@@ -1,0 +1,80 @@
+/* --- THE ANNOUNCEMENT CARD --- */
+.announcement-card {
+    background-color: var(--contrast-color);
+    border: 1px solid #e2e8f0;
+    
+    /* Using your theme color as an elegant accent bar instead of a full background fill */
+    border-left: 6px solid var(--accent-color); 
+    border-radius: 12px;
+    padding: 28px 36px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+
+/* --- AUTOMATIC ALTERNATING STYLES --- */
+/* Every even card gets a gorgeous soft tint background and a deeper accent tone */
+.announcement-card:nth-child(even) {
+    background-color: var(--primary-color); 
+    border-left-color: var(--secondary-color); 
+}
+
+/* --- DATE BADGE --- */
+.announcement-meta {
+    margin-bottom: 14px;
+}
+
+.announcement-date {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    color: #718096;
+    background-color: var(---color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+
+    border-bottom: 5px solid var(--accent-color);
+    border-left: 5px solid var(--accent-color);
+}
+
+/* Alternate colors for the date badge on even rows */
+.announcement-card:nth-child(even) .announcement-date {
+    background-color: #f0e2e6;
+    color: #924059;
+
+    border-bottom: 5px solid var(--secondary-color);
+    border-left: 5px solid var(--secondary-color);
+}
+
+/* --- TYPOGRAPHY --- */
+.announcement-title {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a202c;
+    margin: 0 0 14px 0;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+}
+
+.announcement-content {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 16.5px;
+    color: #4a5568;
+    line-height: 1.75; /* Adds white space between lines to prevent eye strain */
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Handles paragraph breaks gracefully */
+.announcement-content p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.announcement-content p:last-child {
+    margin-bottom: 0;
+}

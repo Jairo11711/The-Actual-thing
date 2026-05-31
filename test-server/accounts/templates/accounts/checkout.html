@@ -25,7 +25,7 @@
         <div class="static-right">
             <div class="cart-summary">
                     <h1 class="checkout-header">Cart Summary</h1>
-                    <h3 class='cart-total-price'> Total: ₱{{ cart.total_price }}</h3>
+                    <h3 class='cart-total-price'> Total: ₱{{ cart.total_price}}</h3>
             </div>
             <div class="checkout-payment-information">
     <form action="{% url 'accounts:order_cart' %}" method="POST" class="ph-delivery-form">

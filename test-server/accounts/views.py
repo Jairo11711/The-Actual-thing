@@ -128,12 +128,35 @@ def order_cart(request):
         cart_items.delete() 
         print("step 5")
         # 6. Redirect onward to delivery dashboard view using the generated transaction primary key
-        return redirect('accounts:view_order', order_id=order.id)
+        return redirect('accounts:view_order')
 
     return redirect('accounts:view_cart')
 
+@login_required
 def view_order(request):
-    return render(request, 'accounts/delivery.html')
+    # Fetch all orders for the user, latest first
+    customer_orders = Order.objects.filter(customer__user=request.user).order_by('-date_ordered')
+    
+    # Check if the user clicked a specific order button (e.g., /accounts/delivery/?order=3)
+    selected_order_id = request.GET.get('order')
+    selected_order = None
+    
+    if customer_orders.exists():
+        if selected_order_id:
+            selected_order = customer_orders.filter(id=selected_order_id).first()
+        
+        # Fallback: If no order ID was clicked (or it was invalid), default to the latest order
+        if not selected_order:
+            selected_order = customer_orders.first()
+            
+    context = {
+        'orders': customer_orders,
+        'selected_order': selected_order  # Pass the single chosen order to the template
+    }
+    return render(request, 'accounts/delivery.html', context)
+
+def order_detail(request, order_id):
+    return render(request, 'accounts/base_accounts.html')
 
 """
 @login_required

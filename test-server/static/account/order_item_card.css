@@ -1,0 +1,37 @@
+.order-item-card{
+    display: flex;
+
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+}
+
+.order-item-image,
+.order-item-name,
+.order-item-details,
+.order-item-price,
+.order-item-quantity,
+.order-item-total-price{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    font-size: 18px;
+    font-family: var(--font-family-sub);
+}
+
+.order-item-image{
+    height: 100px;
+    width: 100px;
+    border-radius: 20px;
+    margin: 10px;
+
+}
+
+.order-item-specs{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+

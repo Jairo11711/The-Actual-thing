@@ -56,17 +56,10 @@ class Cart(models.Model):
 
     @property
     def total_price(self):
-        # 2. Let the database multiply quantity * price and sum them up
-        result = self.items.aggregate(
-            total=Sum(F('quantity') * F('item__price'), output_field=models.DecimalField())
-        )['total']
-        
-        if result is None:
-            return Decimal('0.0')
-        
-        # Using quantize ensures safe, deterministic decimal rounding to 1 decimal place
-        return result.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-    
+        # Sums the working subtotal of all items in this cart.
+        # Decimal('0.00') provides a safe starting point for Python's sum function.
+        return sum((item.subtotal for item in self.items.all()), Decimal('0.00'))
+
 class CartItem(models.Model):
     cart = models.ForeignKey(
         Cart, 
@@ -117,13 +110,8 @@ class Order(models.Model):
 
     @property
     def grand_total(self):
-        result = self.order_items.aggregate(
-            total=Sum(F('quantity') * F('price_at_purchase'), output_field=models.DecimalField())
-        )['total']
-        if result is None:
-            return Decimal('0.00')
-        return result.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-
+        # Sums the working subtotal of all items recorded under this historical order.
+        return sum((item.subtotal for item in self.order_items.all()), Decimal('0.00'))
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
@@ -139,5 +127,8 @@ class OrderItem(models.Model):
 
     @property
     def subtotal(self):
-        raw_subtotal = self.price_at_purchase * self.quantity
+        # FIX: Fallback to 0 if price_at_purchase is missing/None
+        price = self.price_at_purchase if self.price_at_purchase is not None else Decimal('0.00')
+        
+        raw_subtotal = price * self.quantity
         return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)

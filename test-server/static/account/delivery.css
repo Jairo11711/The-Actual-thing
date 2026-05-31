@@ -1,26 +1,135 @@
+/* --- MAIN GRID WRAPPER --- */
 .order-margin {
     margin-left: 5vw;
     margin-right: 5vw;
-    
     display: flex;
     height: 825px;
-    overflow: hidden;
+    overflow: hidden; /* Locks view height; prevents whole-page scrolling */
 }
 
-.order-scroll-right{
-    flex: 1; /* Takes up half the space (or adjust as needed) */
-    height: 100%;
-    overflow-y: auto; /* Enables vertical scrolling just for this side */
-    padding: 20px;
-
-    scrollbar-width: none;
+.order-list-title{
+    font-family: var(--font-family);
+    font-size: 28px;
 }
 
-.order-static-left{
-    flex: 1; /* Takes up the other half */
+/* --- RIGHT SIDE: ORDER HISTORY BUTTONS --- */
+.delivery-right-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-right: 30px;
+    border-right: 5px dashed var(--secondary-color);
     height: 100%;
-    padding: 20px;
+}
 
-    border-radius: 20px;
-    border: 3px solid var(--secondary-color);
+.order-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    flex: 1;
+    overflow-y: auto;       /* Enables self-contained vertical scrolling */
+    scrollbar-width: none;  /* Hides scrollbar on Firefox */
+}
+
+/* Hides scrollbars on Chrome, Safari, and newer Edge versions */
+.order-list-container::-webkit-scrollbar {
+    display: none;
+}
+
+.order-btn {
+    border: 4px solid var(--accent-color);
+    border-radius: 30px;
+    margin: 8px 0;
+    background-color: var(--primary-color);
+    padding: 12px 24px;     /* Balanced, readable inner alignment */
+    color: var(--contrast-color);
+    font-size: 24px;        /* Slightly scaled for dynamic text lengths */
+    font-family: var(--font-family);
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.order-btn:hover {
+    filter: brightness(0.95);
+}
+
+
+/* --- LEFT SIDE: CHOSEN TRANSACTION DETAILS --- */
+.delivery-left-container {
+    flex: 2;
+    padding: 20px 20px 20px 40px; /* Extra padding clears the dashed boundary border */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.order-item-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/* Independent scroll frame for the item components mapping loop */
+.order-cards-scroll-area {
+    flex: 1;                /* Flexibly fills the container, honoring bottom details */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    overflow-y: auto;       /* Enables self-contained vertical scrolling */
+    scrollbar-width: none;  /* Hides scrollbar on Firefox */
+
+    padding: 20px;
+}
+
+/* Hides scrollbars on Chrome, Safari, and Edge */
+.order-cards-scroll-area::-webkit-scrollbar {
+    display: none;
+}
+
+/* Static bottom summary box for customer shipping location fields */
+.order-delivery-details {
+    padding-top: 15px;
+    background-color: transparent;
+    flex-shrink: 0;         /* Guarantees card volume can never squeeze this section out */
+}
+
+
+.selected-order-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-order-title{
+    font-size: 24px;
+    font-family: var(--font-family-sub);
+}
+
+.selected-order-sub-title,
+.badge-status{
+    font-size: 20px;
+    font-family: var(--font-family-sub);
+}
+
+.badge-status{
+    color: var(--shadow-text-color);
+    font-size: 20px;
+}
+
+.selected-order-total-price{
+    font-family: var(--font-family-sub);
+    font-size: 36px;
+}
+
+.order-delivery-details-text{
+    font-size: 18px;
+    font-family: var(--font-family-sub);
+}
+
+.no-orders-test{
+    font-family: var(--font-family);
+    font-size: 24px;
 }

@@ -8,8 +8,52 @@
 
 {% block content %}
     <div class="order-margin">
-        <div class="order-scroll-right">
-        <h1>Order</h1>
+        <div class="delivery-right-container">
+        <h1 class="order-list-title">ORDER LIST </h1>
+        <div class="order-list-container">
+            {% for order in orders %}
+                <a href="?order={{ order.id }}" class="order-btn {% if order.id == selected_order.id %}active-order{% endif %}">
+                        Order #{{ order.id }} {{ order.date_ordered|date:"M d, Y" }}
+                    </a>
+                {% empty %}
+                <p class="no-orders-text">You haven't placed any orders yet!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+        <div class="delivery-left-container">
+        <div class="order-item-list-container">
+            {% if selected_order %}
+            <div class="selected-order-header">
+                <div class="selected-order-header-left">
+                <h3 class="selected-order-title">Items for Order #{{ selected_order.id }}</h3>
+                <p class="selected-order-sub-title">Status: <span class="badge-status">{{ selected_order.status|title }}</span></p>
+                </div>
+                <div class="selected-order-header-right">
+                <h3 class="selected-order-total-price"> ₱{{ selected_order.grand_total }}</h3>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="order-cards-scroll-area">
+                {% for order_item in selected_order.order_items.all %}
+                    
+                    {% include 'accounts/order_item_card.html' %}
+                    
+                {% endfor %}
+            </div>
+            
+            <hr>
+            <div class="order-delivery-details">
+                <p class="order-delivery-details-text"><strong>Deliver to:</strong> {{ selected_order.full_name }}</p>
+                <p class="order-delivery-details-text"><strong>Address:</strong> {{ selected_order.street_address }}, {{ selected_order.barangay }}, {{ selected_order.city }}</p>
+            </div>
+
+        {% else %}
+            <p class="no-orders-text">No transaction details available.</p>
+        {% endif %}
+        
+        </div>
         </div>
     </div>
 {% endblock content %}

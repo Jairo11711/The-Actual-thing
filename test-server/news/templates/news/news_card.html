@@ -1,0 +1,11 @@
+<div class="announcement-card">
+    <div class="announcement-meta">
+        <span class="announcement-date">{{ announcement.created_at|date:"M d, Y" }}</span>
+    </div>
+    
+    <h3 class="announcement-title">{{ announcement.title }}</h3>
+    
+    <div class="announcement-content">
+        {{ announcement.content|linebreaks }}
+    </div>
+</div>

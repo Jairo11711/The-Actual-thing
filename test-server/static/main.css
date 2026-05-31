@@ -11,3 +11,7 @@
 @import 'shop/shop-page.css';
 @import 'account/checkout.css';
 @import 'account/cart_item_card.css';
+@import 'account/delivery.css';
+@import 'account/order_item_card.css';
+@import 'news/news_page.css';
+@import 'news/news_card.css';
