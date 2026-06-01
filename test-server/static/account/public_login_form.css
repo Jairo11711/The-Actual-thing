@@ -87,3 +87,16 @@
     font-family: "MoreSugar";
 
 }
+
+.login-warning-box {
+    background-color: #fffaf0;
+    color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    padding: 14px;
+    border-radius: 12px;
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}

@@ -14,6 +14,11 @@
     <div class="round-pink-box-container">
         <div class="round-pink-box">
             <h1 class="login-label h1">Login</h1>
+            {% if request.GET.next %}
+            <div class="login-warning-box">
+                You must be logged in to perform that action.
+            </div>
+            {% endif %}
 
             <form class="login-form" action="{% url 'accounts:login' %}" method="post">
                 {% csrf_token %}

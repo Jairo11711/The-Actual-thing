@@ -1,6 +1,123 @@
-.contact-page-main-container {
+/* --- CONTAINER SETUP --- */
+.contact-container {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- PLAYFUL MAIN HEADERS --- */
+.contact-title {
+    font-family: "Comic Sans MS", "Fredoka", system-ui, sans-serif; /* Playful rounded look from image */
+    font-size: 54px;
+    font-weight: 900;
+    color: #111111;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.contact-subtitle {
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #555555;
+    margin: 0 0 32px 0;
+}
+
+/* --- THE MAIN VIBRANT PINK CONTAINER --- */
+.contact-card-box {
+    background-color: #e44781; /* Perfectly sampled vibrant pink theme */
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(228, 71, 129, 0.15);
+    box-sizing: border-box;
+}
+
+/* --- WHITE INNER STITCHED BORDER --- */
+.stitched-border-wrapper {
+    border: 3px dashed rgba(255, 255, 255, 0.85); /* Creates the iconic dashed frame */
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-sizing: border-box;
+}
+
+/* --- GRID LAYOUT (Polished to fit 2 items cleanly) --- */
+.social-links-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 32px; /* Uniform grid gap spacing */
+}
+
+/* --- INDIVIDUAL LINKS CARDS --- */
+.social-item-card {
+    flex: 1;
+    max-width: 340px;
+    background-color: #fbd4da; /* Creamy light-pink/peach tone matching image cards */
+    border-radius: 24px;
+    padding: 36px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 3vh;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    
+    /* Smooth lift transition for interactions */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* --- BRAND ICONS ARCHITECTURE --- */
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Accurate brand color overrides */
+.icon-svg.color-fb {
+    fill: #1877f2; /* Native Facebook Blue */
+}
+
+/* --- CARD TEXT LABELS --- */
+.social-label {
+    font-family: system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111111;
+    letter-spacing: -0.2px;
+}
+
+/* --- RESPONSIVE FALLBACKS FOR MOBILE SCREENS --- */
+@media (max-width: 680px) {
+    .social-links-grid {
+        flex-direction: column; /* Stacks nicely vertically on narrow screens */
+        gap: 20px;
+    }
+    .social-item-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    .stitched-border-wrapper {
+        padding: 30px 20px;
+    }
+    .contact-title {
+        font-size: 40px;
+    }
 }
