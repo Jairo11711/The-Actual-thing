@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CustomerRegistrationForm, CustomerProfileForm
-from dashboard.models import Cart, CartItem, Order,OrderItem
+from dashboard.models import Cart, CartItem, Order,OrderItem,Customer, Review
 from django.contrib.auth.decorators import login_required
 
 
@@ -195,5 +195,39 @@ def gcash_payment(request, order_id):
 
     # 6. CRITICAL FIX: Pass the order dictionary matrix block into your context renderer
     return render(request, 'accounts/gcash_portal.html', {'order': order})
+
+@login_required
+def submit_review(request, order_id): # Added order_id tracking hook parameter
+    if request.method == 'POST':
+        content = request.POST.get('content', '').strip()
+
+        print('# 1. Validation check')
+        if not content:
+            messages.error(request, "Review content cannot be empty.")
+            return redirect(request.META.get('HTTP_REFERER', 'accounts:view_order'))
+
+        try:
+            print('# 2. Get the customer profile')
+            customer = Customer.objects.get(user=request.user)
+            
+            print('# 3. Securely grab the targeted order instance to verify ownership')
+            order = get_object_or_404(Order, id=order_id, customer=customer)
+            
+            print('# 4. Create and commit the review instance to the database')
+            Review.objects.create(
+                customer=customer,
+                order=order,      # Explicit database relation mapping
+                content=content
+            )
+            
+            messages.success(request, "Thank you! Your feedback has been posted successfully.")
+            
+        except Customer.DoesNotExist:
+            messages.error(request, "Customer profile mismatch error.")
+        except Exception as e:
+            messages.error(request, f"Database integrity error: {e}")
+
+    return redirect(request.META.get('HTTP_REFERER', 'accounts:view_order'))
+
 def order_detail(request, order_id):
     return render(request, 'accounts/base_accounts.html')

@@ -155,13 +155,11 @@ class OrderItem(models.Model):
     
 class Review(models.Model):
     id = models.AutoField(primary_key=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='reviews')
     
-    # Links to your Customer profile, cascade deletes reviews if customer account is removed
-    customer = models.ForeignKey(
-        Customer, 
-        on_delete=models.CASCADE, 
-        related_name='reviews'
-    )
+    # NEW: Link the review explicitly to the order instance
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='order_reviews', null=True, blank=True)
+    
     content = models.TextField(max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -169,4 +167,4 @@ class Review(models.Model):
         ordering = ['-date_created']
 
     def __str__(self):
-        return f"Review #{self.id} by {self.customer.name}"
+        return f"Review #{self.id} for Order #{self.order.id if self.order else 'N/A'} by {self.customer.name}"

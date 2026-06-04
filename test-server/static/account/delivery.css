@@ -192,3 +192,79 @@
 .btn-gcash-action:active {
     transform: translateY(0);
 }
+
+
+/* --- Review Form Container Animations --- */
+/* --- Flat Review Area Base Parameters --- */
+.review-flat-section {
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Hide the management tracking checkbox hook toggle point */
+.review-toggle-check {
+    display: none;
+}
+
+/* Standalone REVIEW ORDER button styling values */
+.review-trigger-btn {
+    display: inline-block;
+    width: auto;
+    padding: 10px 24px;
+    font-size: 1rem;
+    border-radius: 10px;
+    user-select: none;
+    text-align: center;
+}
+
+/* --- The Content Elements (Hidden by default) --- */
+.flat-review-form-content {
+    display: none;
+    opacity: 0;
+    margin-top: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* --- Expansion Toggle (Triggers smoothly with NO extra card borders) --- */
+.review-toggle-check:checked ~ .flat-review-form-content {
+    display: block;
+    opacity: 1;
+    margin-top: 20px; /* Gives nice spacing below the main button */
+}
+
+/* Minor label spacing fix for the flat presentation view */
+.review-flat-section .payment-label {
+    display: block;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #000000;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* --- Clean Textarea Form Style (Matches image inputs) --- */
+.review-flat-section .review-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 3px solid #f994a3; /* Keep the clean cartoon pink border on the text box itself */
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    padding: 14px;
+    outline: none;
+    resize: none;
+    background-color: #ffffff;
+}
+
+.review-flat-section .review-textarea:focus {
+    border-color: #f77d8f;
+}
+
+/* --- Submitting CTA Button Rules Block --- */
+.review-flat-section .payment-btn-submit {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
