@@ -25,6 +25,8 @@
                 <div class="secondary-nav">
 
                     <div class="product-action-container">
+                        <h2 class="free-shipping">FREE SHIPPING IN URDANETA</h2>
+                        {% comment %}
                         <form action="/search" method="GET" class="search-bar">
                             <div class="search-container">
                                 <input type="text" name="q" placeholder="Search in the shop" aria-label="Search">
@@ -33,6 +35,7 @@
                                 </button>
                             </div>
                         </form>
+                        {% endcomment %}
 
                         <a href="{% url 'accounts:view_cart' %}">
                         <button type="button" class="icon" aria-label="Shoping Cart">

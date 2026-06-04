@@ -137,3 +137,11 @@
 }
 
 
+.free-shipping{
+    font-family: var(--font-family);
+    font-size: 22px;
+    margin: 5px;
+    color: var(--accent-color);
+
+    -webkit-text-stroke: 1px var(--shadow-text-color)
+}

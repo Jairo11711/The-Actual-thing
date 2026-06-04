@@ -13,7 +13,7 @@
         <div class="order-list-container">
             {% for order in orders %}
                 <a href="?order={{ order.id }}" class="order-btn {% if order.id == selected_order.id %}active-order{% endif %}">
-                        Order #{{ order.id }} {{ order.date_ordered|date:"M d, Y" }}
+                        Order: {{ order.date_ordered|date:"M d, Y" }}
                     </a>
                 {% empty %}
                 <p class="no-orders-text">You haven't placed any orders yet!</p>

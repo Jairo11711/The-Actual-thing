@@ -3,7 +3,7 @@
     margin-right: 5vw;
     
     display: flex;
-    height: 825px;
+    height: fit-content;
     overflow: hidden;
 }
 
