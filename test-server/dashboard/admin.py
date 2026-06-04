@@ -100,20 +100,26 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 # --- ORDER MANAGEMENT ADMIN ---
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', 'barangay', 'status', 'total_price_display', 'date_ordered')
-    list_filter = ('status', 'date_ordered', 'barangay')
-    search_fields = ('full_name', 'mobile_number', 'street_address')
+    # 1. Updated display columns to show method, payment status, and delivery status
+    list_display = ('id', 'full_name', 'barangay', 'payment_method', 'payment_status', 'delivery_status', 'total_price_display', 'date_ordered')
+    
+    # 2. Updated filters for quick processing queues (e.g., finding what needs GCash verification)
+    list_filter = ('payment_method', 'payment_status', 'delivery_status', 'date_ordered', 'barangay')
+    
+    search_fields = ('full_name', 'mobile_number', 'street_address', 'gcash_reference', 'gcash_number')
     ordering = ('-date_ordered',)
     
     inlines = [OrderItemInline]
     
-    # Organizes and labels layout sections neatly
+    # 3. Reorganized sections to keep Payment/Financial logs completely separate from Delivery Logs
     fieldsets = (
         ('Order Fulfillment', {
-            'fields': ('status', 'total_price_display', 'display_order_items')
+            'fields': ('delivery_status', 'total_price_display', 'display_order_items')
+        }),
+        ('Payment Details', {
+            'fields': ('payment_method', 'payment_status', 'gcash_number', 'gcash_reference', 'display_payment_proof')
         }),
         ('Customer Contact Profile', {
             'fields': ('customer', 'full_name', 'mobile_number')
@@ -123,11 +129,12 @@ class OrderAdmin(admin.ModelAdmin):
         }),
     )
     
-    # Keeps delivery fields from being altered while status can still be updated
+    # 4. Kept critical reference nodes readonly while allowing staff to manage statuses
     readonly_fields = (
-        'date_ordered', 'total_price_display', 'display_order_items', 
+        'date_ordered', 'total_price_display', 'display_order_items', 'display_payment_proof',
         'postal_code', 'city', 'province', 'region', 
-        'customer', 'full_name', 'mobile_number', 'street_address', 'barangay', 'landmarks', 'address_type'
+        'customer', 'full_name', 'mobile_number', 'street_address', 'barangay', 'landmarks', 'address_type',
+        'payment_method', 'gcash_number', 'gcash_reference'
     )
 
     def display_order_items(self, obj):
@@ -156,5 +163,18 @@ class OrderAdmin(admin.ModelAdmin):
             return "₱0.00"
         return f"₱{obj.grand_total:.2f}"
 
+    # 5. Helper method to render an image thumbnail preview inside Django admin
+    def display_payment_proof(self, obj):
+        if obj.payment_proof:
+            return format_html(
+                '<a href="{}" target="_blank"><img src="{}" style="max-height: 250px; max-width: 100%; border-radius: 4px; border: 1px solid #ccc;" /></a>',
+                obj.payment_proof.url,
+                obj.payment_proof.url
+            )
+        if obj.payment_method == 'gcash':
+            return "No payment proof uploaded yet."
+        return "Not applicable (COD Order)."
+
     display_order_items.short_description = "Ordered Items Snapshot"
-    total_price_display.short_description = "Grand Total (COD)"
+    total_price_display.short_description = "Grand Total"
+    display_payment_proof.short_description = "GCash Receipt Preview"

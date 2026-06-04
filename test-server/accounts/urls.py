@@ -13,4 +13,5 @@ urlpatterns = [
     path('delivery', views.view_order, name='view_order'),
     path('order_cart', views.order_cart, name='order_cart'),
     path('order_detail/<int:order_id>', views.order_detail, name='order_detail'),
+    path('gcash-payment/<int:order_id>/', views.gcash_payment, name='gcash_payment'),
 ]

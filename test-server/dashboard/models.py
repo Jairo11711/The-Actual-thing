@@ -79,16 +79,39 @@ class CartItem(models.Model):
         return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
 class Order(models.Model):
-    STATUS_CHOICES = [
-        ('Pending', 'Pending / Preparing'),
+    # Distinct states for fulfillment logistics
+    DELIVERY_STATUS_CHOICES = [
+        ('Pending', 'Preparing / Pending'),
         ('Out for Delivery', 'Out for Delivery'),
         ('Delivered', 'Delivered'),
         ('Cancelled', 'Cancelled'),
     ]
 
+    # Distinct states for financial tracking
+    PAYMENT_STATUS_CHOICES = [
+        ('Unpaid', 'Unpaid / Pending COD'),
+        ('Awaiting Verification', 'Awaiting GCash Verification'),
+        ('Paid', 'Paid'),
+        ('Refunded', 'Refunded'),
+    ]
+
+    PAYMENT_METHOD_CHOICES = [
+        ('cod', 'Cash on Delivery (COD)'),
+        ('gcash', 'GCash Online Payment'),
+    ]
+
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
     date_ordered = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    
+    # Dual status split
+    delivery_status = models.CharField(max_length=20, choices=DELIVERY_STATUS_CHOICES, default='Pending')
+    payment_status = models.CharField(max_length=25, choices=PAYMENT_STATUS_CHOICES, default='Unpaid')
+    
+    # Payment Method Details
+    payment_method = models.CharField(max_length=10, choices=PAYMENT_METHOD_CHOICES, default='cod')
+    gcash_number = models.CharField(max_length=20, blank=True, null=True)
+    gcash_reference = models.CharField(max_length=50, blank=True, null=True, unique=True)
+    payment_proof = models.ImageField(upload_to='payment_proofs/', blank=True, null=True)
     
     # Form Delivery Details
     full_name = models.CharField(max_length=100)
@@ -106,17 +129,15 @@ class Order(models.Model):
     landmarks = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"Order #{self.id} - {self.full_name} ({self.status})"
+        return f"Order #{self.id} - {self.full_name} | Delivery: {self.delivery_status} | Payment: {self.payment_status}"
 
     @property
     def grand_total(self):
-        # Sums the working subtotal of all items recorded under this historical order.
         return sum((item.subtotal for item in self.order_items.all()), Decimal('0.00'))
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
-    # Link to item fallback, but save names/prices as strings/decimals 
-    # to protect historical orders if a store item gets updated or deleted later.
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True)
     item_name = models.CharField(max_length=100)
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
@@ -127,8 +148,6 @@ class OrderItem(models.Model):
 
     @property
     def subtotal(self):
-        # FIX: Fallback to 0 if price_at_purchase is missing/None
         price = self.price_at_purchase if self.price_at_purchase is not None else Decimal('0.00')
-        
         raw_subtotal = price * self.quantity
         return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)

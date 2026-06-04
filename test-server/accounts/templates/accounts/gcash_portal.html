@@ -1,0 +1,73 @@
+{% extends 'public_login_base.html' %}
+{% load static %}
+
+{% block sign-direction %}
+    <div class="signup-text">
+        <p class="signup">GCASH PORTAL</p>
+    </div>
+{% endblock sign-direction %}
+
+{% block content %}
+    <div class="round-pink-box-container">
+        <div class="round-pink-box">
+            <h1 class="login-label h1">GCASH PORTAL</h1>
+            
+            <img src="{% static 'images/qr_code.svg' %}" alt="QR CODE" width="400" height="400">
+            
+            <div class="around-payment">
+                <form action="{% url 'accounts:gcash_payment' order.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group-block">
+                        <label for="gcash_number" class="payment-label">GCash Number</label>
+                        <input type="text" 
+                               id="gcash_number" 
+                               name="gcash_number" 
+                               placeholder="09XXXXXXXXX" 
+                               class="payment-input-field"
+                               required>
+                    </div>
+
+                    <div class="form-group-block">
+                        <label for="gcash_reference" class="payment-label">Reference Number</label>
+                        <input type="text" 
+                               id="gcash_reference" 
+                               name="gcash_reference" 
+                               placeholder="13-Digit Ref No." 
+                               class="payment-input-field"
+                               required>
+                    </div>
+
+                    <div class="form-group-block">
+                        <label class="payment-label">Proof of Payment</label>
+                        <div class="file-drop-area">
+                            <input type="file" 
+                                   id="payment_proof" 
+                                   name="payment_proof" 
+                                   accept="image/*" 
+                                   class="hidden-file-input" 
+                                   required>
+                            <label for="payment_proof" class="payment-btn-upload">
+                                CHOOSE IMAGE
+                            </label>
+                            <span class="file-name-placeholder">No file selected</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="payment-btn-upload payment-btn-submit">
+                        SUBMIT PAYMENT
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+    // Updates the filename placeholder when an image is selected
+    document.getElementById('payment_proof').addEventListener('change', function(e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : "No file selected";
+        document.querySelector('.around-payment .file-name-placeholder').textContent = fileName;
+    });
+    </script>
+{% endblock content %}

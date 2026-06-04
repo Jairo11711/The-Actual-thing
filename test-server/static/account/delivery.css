@@ -114,6 +114,30 @@
     font-family: var(--font-family-sub);
 }
 
+/* --- Stack Container --- */
+.selected-order-status-stack {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+/* --- Individual Row Layout --- */
+.status-row {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Spaces the label away from the badge */
+}
+
+/* --- Consistent Alignment for Labels --- */
+.status-label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: var(--font-family-sub);
+    color: var(--text-color); /* Subtle gray text color */
+    min-width: 70px; /* Ensures all badges line up perfectly on the left edge */
+    display: inline-block;
+}
+
 .badge-status{
     color: var(--shadow-text-color);
     font-size: 20px;
@@ -132,4 +156,39 @@
 .no-orders-test{
     font-family: var(--font-family);
     font-size: 24px;
+}
+
+/* --- Order Action Button Container --- */
+.order-action-container {
+    margin-top: 6px;
+    padding-top: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* --- GCash Interactive Action Button --- */
+.btn-gcash-action {
+    display: inline-block;
+    background-color: #007bff; /* Vibrant GCash Blue theme style */
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+.btn-gcash-action:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-gcash-action:active {
+    transform: translateY(0);
 }

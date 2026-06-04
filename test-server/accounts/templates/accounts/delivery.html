@@ -21,39 +21,69 @@
         </div>
     </div>
 
-        <div class="delivery-left-container">
-        <div class="order-item-list-container">
-            {% if selected_order %}
-            <div class="selected-order-header">
-                <div class="selected-order-header-left">
+    <div class="delivery-left-container">
+    <div class="order-item-list-container">
+        {% if selected_order %}
+        <div class="selected-order-header">
+            <div class="selected-order-header-left">
                 <h3 class="selected-order-title">Items for Order #{{ selected_order.id }}</h3>
-                <p class="selected-order-sub-title">Status: <span class="badge-status">{{ selected_order.status|title }}</span></p>
+<div class="selected-order-status-stack">
+    <div class="status-row">
+        <span class="status-label">Method:</span>
+        <span class="badge-status badge-method--{{ selected_order.payment_method|slugify }}">{{ selected_order.get_payment_method_display }}</span>
+    </div>
+    
+    <div class="status-row">
+        <span class="status-label">Payment:</span>
+        <span class="badge-status badge-payment--{{ selected_order.payment_status|slugify }}">{{ selected_order.get_payment_status_display }}</span>
+    </div>
+    
+    <div class="status-row">
+        <span class="status-label">Delivery:</span>
+        <span class="badge-status badge-delivery--{{ selected_order.delivery_status|slugify }}">{{ selected_order.get_delivery_status_display }}</span>
+    </div>
+</div>
+                
+                <!-- NEW: Dynamic GCash Payment Action Button -->
+        {% if selected_order.payment_method == 'gcash' %}
+            {% if selected_order.payment_status == 'Unpaid' or selected_order.payment_status == 'Awaiting Verification' %}
+                <div class="order-action-container">
+                    <a href="{% url 'accounts:gcash_payment' selected_order.id %}" class="btn-gcash-action">
+                        {% if selected_order.payment_status == 'Unpaid' %}
+                            Proceed to GCash Payment
+                        {% else %}
+                            Update / Re-upload Receipt
+                        {% endif %}
+                    </a>
                 </div>
-                <div class="selected-order-header-right">
+            {% endif %}
+        {% endif %}
+
+            </div>
+            <div class="selected-order-header-right">
                 <h3 class="selected-order-total-price"> ₱{{ selected_order.grand_total }}</h3>
-                </div>
             </div>
-            <hr>
-            
-            <div class="order-cards-scroll-area">
-                {% for order_item in selected_order.order_items.all %}
-                    
-                    {% include 'accounts/order_item_card.html' %}
-                    
-                {% endfor %}
-            </div>
-            
-            <hr>
-            <div class="order-delivery-details">
-                <p class="order-delivery-details-text"><strong>Deliver to:</strong> {{ selected_order.full_name }}</p>
-                <p class="order-delivery-details-text"><strong>Address:</strong> {{ selected_order.street_address }}, {{ selected_order.barangay }}, {{ selected_order.city }}</p>
-            </div>
+        </div>
+        <hr>
+        
+        <div class="order-cards-scroll-area">
+            {% for order_item in selected_order.order_items.all %}
+                {% include 'accounts/order_item_card.html' %}
+            {% endfor %}
+        </div>
+        
+        <hr>
+        <div class="order-delivery-details">
+            <p class="order-delivery-details-text"><strong>Deliver to:</strong> {{ selected_order.full_name }}</p>
+            <p class="order-delivery-details-text"><strong>Address:</strong> {{ selected_order.street_address }}, {{ selected_order.barangay }}, {{ selected_order.city }}</p>
+        </div>
+
+        
 
         {% else %}
             <p class="no-orders-text">No transaction details available.</p>
         {% endif %}
-        
-        </div>
-        </div>
+    </div>
+</div>
     </div>
 {% endblock content %}

@@ -1,0 +1,102 @@
+/* --- Scoped Payment Container Layout --- */
+.around-payment {
+    /* Uses a clean, thick font stack to match your login branding */
+    font-family: 'More Sugar', 'Comic Sans MS', 'Arial Black', sans-serif;
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* --- Form Field Labels --- */
+.around-payment .payment-label {
+    display: block;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #000000;
+    margin-bottom: 8px;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+/* --- Inline Overrides for Form Inputs --- */
+.around-payment input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: 3px solid #f994a3; /* Smooth pink accent stroke */
+    border-radius: 12px;       /* Rounded corners from image */
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    color: #333333;
+    outline: none;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+/* Light focus state for form text inputs */
+.around-payment input[type="text"]:focus {
+    border-color: #f77d8f;
+}
+
+/* --- File Upload Area Wrapper --- */
+.around-payment .file-drop-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    margin: 10px;
+    border: 3px dashed #f994a3; /* Dashed pink border for file input drop-zone */
+    border-radius: 16px;
+    background-color: #fffbfb;
+}
+
+/* Hide native browser input file selection nodes completely */
+.around-payment .hidden-file-input {
+    display: none;
+}
+
+/* --- Cartoonish Pink Action Buttons (CHOOSE IMAGE & SUBMIT PAYMENT) --- */
+.around-payment .payment-btn-upload {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color); /* Solid signature pink */
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-align: center;
+    padding: 14px 24px;
+    border-radius: 14px; /* Smooth rounded pill corners matching your button layout */
+    cursor: pointer;
+    box-sizing: border-box;
+    border: none;
+    letter-spacing: 1px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Smaller adjustment wrapper strictly for the file picker label button */
+.around-payment label.payment-btn-upload {
+    width: auto;
+    padding: 10px 28px;
+    font-size: 1rem;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+/* --- Hover and Active Click Interactions --- */
+.around-payment .payment-btn-upload:hover {
+    background-color: #f77d8f; /* Slightly deeper pink tint */
+    transform: scale(1.01);    /* Slight tactile bulge on hover */
+}
+
+.around-payment .payment-btn-upload:active {
+    transform: scale(0.99);    /* Recedes slightly into container window when clicked */
+}
+
+/* --- Filename Tracker String Style --- */
+.around-payment .file-name-placeholder {
+    font-size: 0.95rem;
+    color: #555555;
+    font-weight: 700;
+    margin-top: 8px;
+    font-family: inherit;
+}

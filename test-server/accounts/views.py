@@ -87,14 +87,14 @@ def order_cart(request):
     # 1. FIXED RELATION LOOKUP: Find cart through the customer attribute, just like view_cart does
     cart = get_object_or_404(Cart, customer__user=request.user)
     cart_items = cart.items.all()
-    print("called out")
+    print("called in")
+    
     if not cart_items.exists():
         messages.error(request, "Your cart is empty!")
         return redirect('accounts:view_cart')
 
     if request.method == 'POST' and request.POST.get("action") == "ORDER":
         
-        print("called in")
         # 2. Extract clean form parameters
         full_name = request.POST.get('full_name')
         mobile_number = request.POST.get('mobile_number')
@@ -102,6 +102,7 @@ def order_cart(request):
         barangay = request.POST.get('barangay')
         address_type = request.POST.get('address_type', 'home')
         landmarks = request.POST.get('landmarks', '')
+        payment_method = request.POST.get('payment_method', 'cod')
         print("step 2")
         # 3. FIXED ORDER INITIALIZATION: Links via customer object instead of auth.User
         order = Order.objects.create(
@@ -111,7 +112,8 @@ def order_cart(request):
             street_address=street_address,
             barangay=barangay,
             address_type=address_type,
-            landmarks=landmarks
+            landmarks=landmarks,
+            payment_method=payment_method
         )
         print("step 3")
         # 4. FIXED ATTRIBUTE ACCESSORS: Matches your precise model field naming strategies
@@ -128,7 +130,13 @@ def order_cart(request):
         cart_items.delete() 
         print("step 5")
         # 6. Redirect onward to delivery dashboard view using the generated transaction primary key
-        return redirect('accounts:view_order')
+        print("step 6")
+        if payment_method == 'gcash':
+            # Redirects to your custom GCash portal loading page with the new order ID
+            return redirect('accounts:gcash_payment', order_id=order.id)
+        else:
+            # Standard Cash on Delivery fallback
+            return redirect('accounts:view_order')
 
     return redirect('accounts:view_cart')
 
@@ -155,18 +163,37 @@ def view_order(request):
     }
     return render(request, 'accounts/delivery.html', context)
 
+def gcash_payment(request, order_id):
+    # 1. Fetch the order or throw a 404 page if someone plays with the URL string
+    order = get_object_or_404(Order, id=order_id)
+
+    if request.method == 'POST':
+        # 2. Grab text parameters from request.POST
+        gcash_number = request.POST.get('gcash_number')
+        gcash_reference = request.POST.get('gcash_reference')
+        
+        # 3. Grab the uploaded file from request.FILES
+        payment_proof = request.FILES.get('payment_proof')
+
+        # Validation check to ensure they didn't bypass the front-end 'required' attribute
+        if not payment_proof:
+            messages.error(request, "Please upload your screenshot proof of payment.")
+            return render(request, 'accounts/gcash_portal.html', {'order': order})
+
+        # 4. Save updates to your model instance fields
+        order.gcash_number = gcash_number
+        order.gcash_reference = gcash_reference
+        order.payment_proof = payment_proof
+        
+        # Shift payment status to awaiting confirmation
+        order.payment_status = 'Awaiting Verification'
+        order.save()
+
+        # 5. Provide UX feedback and route them back to their dashboard panel view
+        messages.success(request, "GCash receipt uploaded successfully! Awaiting vendor verification.")
+        return redirect('accounts:view_order')
+
+    # 6. CRITICAL FIX: Pass the order dictionary matrix block into your context renderer
+    return render(request, 'accounts/gcash_portal.html', {'order': order})
 def order_detail(request, order_id):
     return render(request, 'accounts/base_accounts.html')
-
-"""
-@login_required
-def view_order(request, order_id):
-    # Fetch specified order safely, confirming validation rules against active user instance
-    order = get_object_or_404(Order, id=order_id, customer__user=request.user)
-    
-    context = {
-        'order': order,
-        'order_items': order.order_items.all()
-    }
-    return render(request, 'accounts/delivery.html', context)
-"""
