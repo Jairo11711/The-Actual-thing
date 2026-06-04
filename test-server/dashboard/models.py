@@ -13,6 +13,7 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     image = models.ImageField(upload_to="products/", null=True, blank=True)
+    is_in_stock = models.BooleanField(default=True, verbose_name="In Stock")
 
     def __str__(self):
         return self.name
@@ -151,3 +152,21 @@ class OrderItem(models.Model):
         price = self.price_at_purchase if self.price_at_purchase is not None else Decimal('0.00')
         raw_subtotal = price * self.quantity
         return raw_subtotal.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    
+class Review(models.Model):
+    id = models.AutoField(primary_key=True)
+    
+    # Links to your Customer profile, cascade deletes reviews if customer account is removed
+    customer = models.ForeignKey(
+        Customer, 
+        on_delete=models.CASCADE, 
+        related_name='reviews'
+    )
+    content = models.TextField(max_length=1000)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-date_created']
+
+    def __str__(self):
+        return f"Review #{self.id} by {self.customer.name}"

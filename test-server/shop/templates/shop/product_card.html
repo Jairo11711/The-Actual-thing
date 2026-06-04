@@ -1,15 +1,26 @@
 {% load static %}
 
-<div class="product-card">    
-    {% if product.image %}
-        <img src="{{ product.image.url }}" class="product-image">
-    {% else %}
-        <img src="{% static 'images/product-placeholder.jpg' %}" class="product-image">
+<div class="product-card {% if not product.is_in_stock %}card-out-of-stock{% endif %}">    
+    
+    {% if not product.is_in_stock %}
+        <span class="out-of-stock-badge">Out of Stock</span>
     {% endif %}
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="product-image {% if not product.is_in_stock %}img-black-white{% endif %}">
+    {% else %}
+        <img src="{% static 'images/product-placeholder.jpg' %}" class="product-image {% if not product.is_in_stock %}img-black-white{% endif %}">
+    {% endif %}
+    
     <h6 class="product-name">{{ product.name|title }}</h6>
     <h6 class="product-price">${{ product.price }}</h6>
+    
     <form action="{% url 'shop:add_to_cart' product.id %}" method="POST">
         {% csrf_token %}
-        <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+        {% if product.is_in_stock %}
+            <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+        {% else %}
+            <button class="add-to-cart-btn btn-disabled" type="submit" disabled>Unavailable</button>
+        {% endif %}
     </form>
 </div>

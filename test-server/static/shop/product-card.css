@@ -1,4 +1,5 @@
-.product-card{
+/* --- Core Card Layout --- */
+.product-card {
     border: 5px solid var(--primary-color);
     border-radius: 20px;
     padding: 10px;
@@ -6,43 +7,79 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     width: 275px;
     height: 425px;
     
+    /* CRITICAL: Acts as the relative coordinate system baseline anchor for our badge */
+    position: relative; 
+    box-sizing: border-box;
 }
 
+/* Optional: Softens the entire card's border color slightly when empty */
+.card-out-of-stock {
+    border-color: #cccccc;
+}
 
-.product-image{
-    width : 250px;
+/* --- 1. Top-Left Badge Styling Layout --- */
+.out-of-stock-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #333333; /* Dark gray to match your bold aesthetic */
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 900;
+    font-family: var(--font-family);
+    border-radius: 8px;
+    z-index: 5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- 2. Black and White Image Filter --- */
+.product-image {
+    width: 250px;
     height: 250px;
+    object-fit: cover;
 }
 
-.product-name{
+.img-black-white {
+    filter: grayscale(100%);
+    opacity: 0.7; /* Adds a faded effect to emphasize it's unavailable */
+}
+
+/* --- Typography Baselines --- */
+.product-name {
     font-size: 32px;
     font-family: var(--font-family);
 }
 
-.product-price{
+.product-price {
     font-size: 18px;
     font-family: var(--font-family-sub);
-    
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
- .add-to-cart-btn{
+/* --- 3. Interactive State Action Buttons --- */
+.add-to-cart-btn {
     border: none;
     border-radius: 30px;
-    padding: 10px;
+    padding: 10px 20px;
     outline: none;
     background: var(--primary-color);
-
     font-size: 24px;
     font-family: var(--font-family);
     color: var(--contrast-color);
-
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
 
- }
-
+/* Uninteractable disabled button class treatment override values */
+.add-to-cart-btn.btn-disabled {
+    background-color: #cccccc !important;
+    color: #777777 !important;
+    cursor: not-allowed; /* Changes cursor to a warning circle slash symbol */
+    pointer-events: none; /* Prevents CSS interactions or hover highlights */
+}

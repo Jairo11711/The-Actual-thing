@@ -83,12 +83,18 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'date_created', 'id')
+    # 1. Added is_in_stock to the main column grid display
+    list_display = ('id', 'name', 'price', 'is_in_stock', 'date_created')
+    
+    # 2. NEW: Allows editing the stock status directly on the list layout view page
+    list_editable = ('is_in_stock',)
+    
+    # 3. Added stock status filter to sidebar queue lists
+    list_filter = ('is_in_stock', 'date_created')
+    
     search_fields = ('name',)
-    list_filter = ('date_created',)
     readonly_fields = ('date_created',)
-    ordering = ('-date_created', )
-
+    ordering = ('-date_created',)
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
