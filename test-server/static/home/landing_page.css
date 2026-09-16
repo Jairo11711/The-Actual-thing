@@ -1,6 +1,6 @@
 /* --- HERO SECTION LAYOUT GRID --- */
 .home-margin {
-    margin: 8vh 5vw;
+    margin: 8vh 5vw 4vh 5vw; /* Slightly lowered bottom margin to accommodate the reviews */
     display: flex;
     flex-direction: row;
     align-items: center;      /* Vertically aligns text box and image line perfectly */
@@ -114,6 +114,89 @@
     border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
+/* ==========================================================================
+   NEW: BOTTOM RANDOM REVIEWS SECTION
+   ========================================================================== */
+
+.home-reviews-section {
+    margin: 4vh 5vw 8vh 5vw;
+    padding-top: 40px;
+    border-top: 1px solid #e2e8f0; /* Soft separator from the hero grid block */
+    text-align: center;
+}
+
+.reviews-section-title {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+}
+
+/* Row wrapper that balances card distributions evenly */
+.reviews-grid-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+/* Beautiful custom feedback card matching your site's box parameters */
+.homepage-review-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+    max-width: 340px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease;
+}
+
+.homepage-review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.review-card-text {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 22px;
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    font-style: italic;
+}
+
+/* Subtle accent line inside the card footer boundary wrapper */
+.review-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 12px;
+}
+
+.review-card-author {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #C75B7A; /* Highlights reviewer name using your signature brand color */
+}
+
+.review-card-date {
+    font-family: var(--font-family), system-ui, sans-serif;
+    font-size: 12px;
+    color: #a0aec0;
+}
+
 /* --- MOBILE & TABLET STACKING BREAKPOINTS --- */
 @media (max-width: 960px) {
     .home-margin {
@@ -137,5 +220,15 @@
 
     .home-image-card {
         height: 380px; /* Scales down container height gracefully on smaller device viewports */
+    }
+
+    /* Adjusts the review card placement strategy for mobile screen viewports */
+    .reviews-grid-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .homepage-review-card {
+        max-width: 100%; /* Spans full usable content width on narrow display viewports */
     }
 }
